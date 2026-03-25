@@ -58,23 +58,31 @@ std::vector<int> generate_random_vector(size_t const size, int const max = 100) 
     return vec;
 }
 
-std::vector<int> array = generate_random_vector(1000);
+std::vector<int> array1 = generate_random_vector(10000);
+std::vector<int> array2 = generate_random_vector(10000);
+std::vector<int> array3 = generate_random_vector(10000);
 
 int main(){
   
 {
 ScopedTimer timer("bubble sort");
-bubble_sort(array);
+bubble_sort(array1);
 }
 
 {
 ScopedTimer timer("quick sort");
-quick_sort(array);
+quick_sort(array2);
 }
 
 {
 ScopedTimer timer("std::sort");
-std::sort(array.begin(), array.end());
+std::sort(array3.begin(), array3.end());
 }
-// à corriger : les 3 tris sont appliqués sur le meme tableau, je devrait en  faire 3 différents aléatoires ?
+
 }
+
+//bubble sort : 599172us (599.172ms) très lent
+//quick sort : 2140.6us (2.1406ms) efficace 
+//std::sort : 1446.1us (1.4461ms) rapide
+
+//Pour les grandes tailles de tableaux, std::sort est plus rapide que quick sort.
