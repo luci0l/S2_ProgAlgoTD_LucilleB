@@ -1,9 +1,20 @@
 #include <vector>
+#include <cstdlib>
 #include <algorithm>
-#include <iostream>
+#include "ScopedTimer.hpp"
 
-bool is_sorted(std::vector<int> const& vec) { return std::is_sorted(vec.begin(), vec.end());}
-  
+//copié collé des exos précédents, faire un .hpp serait plus propre
+void bubble_sort(std::vector<int> & vec){
+int n = vec.size();
+for (int i=0; i<n; i++) {
+  for(int j=0; j<n-i-1; j++) {
+    if(vec[j]> vec[j+1]){
+      std::swap(vec[j], vec[j+1]);
+      }
+    }
+  }
+}
+
 
 size_t quick_sort_partition(std::vector<int> & vec, size_t left, size_t right){
 int pivot = vec[right];
@@ -20,8 +31,6 @@ std::swap(vec[i], vec[right]);
 return i;
 }
 
-
-
 void quick_sort(std::vector<int> & vec, size_t const left, size_t const right){
   if (left >= right) {
     return;
@@ -36,7 +45,6 @@ void quick_sort(std::vector<int> & vec, size_t const left, size_t const right){
     quick_sort(vec, index_pivot + 1, right ); //plus grand que pivot
 }
 
-
 void quick_sort(std::vector<int> & vec) {
     quick_sort(vec, 0, vec.size() - 1);
 }
@@ -44,13 +52,29 @@ void quick_sort(std::vector<int> & vec) {
 
 
 
-int main(){
-
-std::vector<int> array {6, 2, 8, 1, 5, 3, 9};
-quick_sort(array);
-if (is_sorted(array)) {
-    std::cout << "Le tableau est bien trie" << std::endl;
-} else {
-    std::cout << "Le tableau n'est pas trie" << std::endl;
+std::vector<int> generate_random_vector(size_t const size, int const max = 100) {
+    std::vector<int> vec(size);
+    std::generate(vec.begin(), vec.end(), [&max]() { return std::rand() % max;} );
+    return vec;
 }
+
+std::vector<int> array = generate_random_vector(1000);
+
+int main(){
+  
+{
+ScopedTimer timer("bubble sort");
+bubble_sort(array);
+}
+
+{
+ScopedTimer timer("quick sort");
+quick_sort(array);
+}
+
+{
+ScopedTimer timer("std::sort");
+std::sort(array.begin(), array.end());
+}
+// à corriger : les 3 tris sont appliqués sur le meme tableau, je devrait en  faire 3 différents aléatoires ?
 }
