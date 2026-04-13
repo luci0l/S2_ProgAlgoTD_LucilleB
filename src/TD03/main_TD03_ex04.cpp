@@ -4,7 +4,7 @@
 
 
 void search(std::vector<int> const&vec, int value){
-  size_t left { 0 };
+  size_t left {0};
   size_t right = vec.size() - 1;
 
   while(left <= right){
