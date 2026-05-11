@@ -1,6 +1,7 @@
 # Nous voulons un cmake "récent" pour utiliser les dernières fonctionnalités
 cmake_minimum_required(VERSION 3.24)
 project("IMAC")
+set(CMAKE_CXX_STANDARD 20)
 # Optionel: Changer le dossier de sortie des exécutables
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 
@@ -29,7 +30,7 @@ foreach(SRC_MAIN_FILE ${SRC_MAIN_FILES})
     target_include_directories(${EXECUTABLE_NAME} PRIVATE "src")
 
     # On indique que l'on veut utiliser le C++17
-    target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_std_17)
+    target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_std_20)
 
     # Quelques options de compilation pour ajouter des warnings
     if (MSVC)
